@@ -1,0 +1,35 @@
+<div class="table-responsive">
+	<form method="post" action="/products/add">
+		<table class="table table-condensed">
+			<tbody>
+
+				<tr>
+					<th>Name: </th>
+					<td><input type="text" name="name" required placeholder="Enter product name"></td>
+				</tr>
+				<tr>
+					<th>Price: </th>
+					<td><input type="number" name="price" required placeholder="Enter product price"></td>
+				</tr>
+				<tr>
+					<th>Description: </th>
+					<td><input type="text" name="description" ></td>
+				</tr>
+				<tr>
+					<th>Stock Quantty: </th>
+					<td><input type="number" name="quantity" required placeholder="Enter product price"></td>
+				</tr>
+
+			</tbody>
+			<tfooter>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="Save" class="btn btn-success">
+						<input type="button" value="Cancel" class="btn btn-danger" onclick="cancelAdd()">
+					</td>
+				</tr>
+			</tfooter>
+		</table>
+	</form>
+</div>
