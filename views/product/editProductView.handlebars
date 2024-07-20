@@ -1,16 +1,31 @@
 <div class="table-responsive">
-  <form method="post" action='/employees/edit'>
+  <form method="post" action='/products/edit'>
     <table class="table table-condensed">
       <tbody>
         <tr>
-          <th>First Name: </td>
-          <td><input type="text" name="fname" required size="40" 
-                  value="{{data.firstName}}"></td>
+          <th>Name: </td>
+          <td><input type="text" name="name" required size="50" 
+                  value="{{data.name}}"></td>
         </tr>
         <tr>
-          <th>Last Name: </td>
-          <td><input type="text" name="lname" required size="40" 
-                  value="{{data.lastName}}"></td>
+          <th>Price: </td>
+          <td><input type="number" name="price" required 
+                  value="{{data.price}}"></td>
+        </tr>
+        <tr>
+          <th>Description: </td>
+          <td><input type="text" name="description" size="2000" 
+                  value="{{data.description}}"></td>
+        </tr>
+        <tr>
+          <th>Stock Quantty: </td>
+          <td><input type="number" name="quantity" required 
+                  value="{{data.quantity}}"></td>
+        </tr>
+        <tr>
+          <th>Image Url: </td>
+          <td><input type="text" name="imgUrl" required size="100" 
+                  value="{{data.imgUrl}}"></td>
         </tr>
         <input type="hidden" name="id" value="{{data.id}}">
       </tbody>

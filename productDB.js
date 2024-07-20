@@ -14,7 +14,8 @@ let productSchema = new Schema({
 	name: String,
 	description: String,
 	price: Number,
-	quantity: Number
+	quantity: Number,
+	imgUrl: String
 }, {
 	collection: 'products'
 });

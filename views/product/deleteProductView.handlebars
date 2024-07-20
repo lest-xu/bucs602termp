@@ -1,14 +1,26 @@
 <div class="table-responsive">
-  <form method="post" action='/employees/delete'>
+  <form method="post" action='/products/delete'>
     <table class="table table-condensed">
       <tbody>
         <tr>
-          <th>First Name: </td>
-          <td>{{data.firstName}}</td>
+          <th>Name: </td>
+          <td>{{data.name}}</td>
         </tr>
         <tr>
-          <th>Last Name: </td>
-          <td>{{data.lastName}}</td>
+          <th>Price: </td>
+          <td>{{data.price}}</td>
+        </tr>
+        <tr>
+          <th>Description: </td>
+          <td>{{data.description}}</td>
+        </tr>
+        <tr>
+          <th>Stock Quantty: </td>
+          <td>{{data.quantity}}</td>
+        </tr>
+        <tr>
+          <th>Image Url: </td>
+          <td>{{data.imgUrl}}</td>
         </tr>
         <input type="hidden" name="id" value="{{data.id}}">
        
