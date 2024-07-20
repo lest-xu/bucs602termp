@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // other modules
-var displayproducts = require("./displayproducts");
+var displayproducts = require("./displayProducts");
 var addProduct = require("./addProduct");
 var saveProduct = require("./saveProduct");
 var editProduct = require("./editProduct");

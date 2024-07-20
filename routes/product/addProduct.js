@@ -1,5 +1,4 @@
 module.exports = (req, res, next) => {
-
-	// Fill in the code
+	// direct to add product page
 	res.render('addProductView', {title: 'Add a Product'});
 };
