@@ -1,12 +1,20 @@
 <div class="grid-container">
 	<div class="grid-container">
-		<div class="grid-item"><img src="https://asset.brandfetch.io/idIu-Ji9Le/idMV60hx5Z.jpeg" alt="Logo">
+
+		{{#if data}}
+		{{else}}
+		<P>Empty store, please come back later!</P>
+
+		{{#each data}}
+
+		<div class="grid-item"><img src="{{this.imgUrl}}}" alt="image">
 			<div class="grid-item-details">
-				<p><b>Senior Solutions Specialist</b></p>
-				<p>Deloitte</p><span class="text-muted">Jul 2022 - Present</span> <br><span class="text-muted">Seattle,
-					WA</span>
+				<p><b>this.name</b></p>
+				<p>this.price</p>
+				<span class="text-muted">this.quantity</span>
 			</div>
 		</div>
-		
+
+		{{/each}}
 	</div>
 </div>
