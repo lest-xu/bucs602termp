@@ -1,4 +1,4 @@
-const productDB = require('../../productDB.js');
+const productDB = require('../productDB.js');
 const Product = productDB.getModel();
 
 // display store home page

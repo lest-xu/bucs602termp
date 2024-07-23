@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <form method="post" action='/products/edit'>
+    <table class="table table-condensed">
+      <tbody>
+        <tr>
+          <th>Name: </td>
+          <td><input type="text" name="name" required size="50" 
+                  value="{{data.name}}"></td>
+        </tr>
+        <tr>
+          <th>Price: </td>
+          <td><input type="number" name="price" required 
+                  value="{{data.price}}"></td>
+        </tr>
+        <tr>
+          <th>Description: </td>
+          <td><input type="text" name="description" size="2000" 
+                  value="{{data.description}}"></td>
+        </tr>
+        <tr>
+          <th>Stock Quantty: </td>
+          <td><input type="number" name="quantity" required 
+                  value="{{data.quantity}}"></td>
+        </tr>
+        <tr>
+          <th>Image Url: </td>
+          <td><input type="text" name="imgUrl" required size="100" 
+                  value="{{data.imgUrl}}"></td>
+        </tr>
+        <input type="hidden" name="id" value="{{data.id}}">
+      </tbody>
+      <tfooter>
+        <tr>
+          <td></td>
+          <td>
+              <input type="submit" value="Save" class="btn btn-success">
+              <input type="button" value="Cancel" class="btn btn-danger"
+                  class="cancel" onclick="cancelAdd()">
+          </td>
+        </tr>
+      </tfooter>
+    </table>
+  </form>
+</div>

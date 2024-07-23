@@ -1,4 +1,4 @@
-const productDB = require('../productDB.js');
+const productDB = require('../../productDB.js');
 const Product = productDB.getModel();
 
 module.exports = async (req, res, next) => {

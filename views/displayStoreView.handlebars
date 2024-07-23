@@ -1,20 +1,20 @@
 <div class="grid-container">
-	<div class="grid-container">
 
-		{{#if data}}
-		{{else}}
-		<P>Empty store, please come back later!</P>
+	{{#if data}}
+	<p>Cart: 0</p>
+	{{else}}
+	<P>Empty store, please come back later!</P>
+	{{/if}}
 
-		{{#each data}}
+	{{#each data}}
 
-		<div class="grid-item"><img src="{{this.imgUrl}}}" alt="image">
-			<div class="grid-item-details">
-				<p><b>this.name</b></p>
-				<p>this.price</p>
-				<span class="text-muted">this.quantity</span>
-			</div>
+	<div class="grid-item"><img src="" alt="image">
+		<div class="grid-item-details">
+			<p><b>this.name</b></p>
+			<p>this.price</p>
+			<span class="text-muted">this.quantity</span>
 		</div>
-
-		{{/each}}
 	</div>
+
+	{{/each}}
 </div>
