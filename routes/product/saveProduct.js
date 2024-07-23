@@ -8,7 +8,8 @@ module.exports = async (req, res, next) => {
 		name: req.body.name, // assign the value from input
 		price: req.body.price,
 		description: req.body.description,
-		quantity: req.body.quantity
+		quantity: req.body.quantity,
+		imgUrl: req.body.imgUrl
 	});
 
 	// save the product and redirect to products' home page

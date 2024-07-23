@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
         product.price = req.body.price;
         product.description = req.body.description;
         product.quantity = req.body.quantity;
-
+        product.imgUrl = req.body.imgUrl;
         // save and redirect
         product.save((error) => {
             if (error) {

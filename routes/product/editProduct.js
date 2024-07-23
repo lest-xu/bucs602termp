@@ -17,13 +17,14 @@ module.exports = async (req, res, next) => {
         }
         
         // render edit product view
-        res.render('editproductView', {
+        res.render('./product/editproductView', {
             title: 'Edit an product', data: {
                 id: product._id,
                 name: product.name,
                 price: product.price,
                 description: product.description,
-                quantity: product.quantity
+                quantity: product.quantity,
+                imgUrl: product.imgUrl
             }
         });
     });

@@ -8,11 +8,11 @@
 
 	{{#each data}}
 
-	<div class="grid-item"><img src="" alt="image">
+	<div class="grid-item"><img src="{{this.imgUrl}}" alt="image">
 		<div class="grid-item-details">
-			<p><b>this.name</b></p>
-			<p>this.price</p>
-			<span class="text-muted">this.quantity</span>
+			<p><b>{{this.name}}</b></p>
+			<p>${{this.price}}</p>
+			<span class="text-muted">{{this.quantity}}</span>
 		</div>
 	</div>
 
