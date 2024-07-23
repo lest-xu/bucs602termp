@@ -1,20 +1,33 @@
-<div class="grid-container">
+<main class="flex-item">
+	<section class="products">
+		<h2>🍎 Inventory <span class="badge bg-primary rounded-pill">8</span><button type="button"
+				class="btn btn-Secondary ms-3">Reset</button></h2>
+		{{#if data}}
+		<p>Cart: 0</p>
+		{{else}}
+		<P>Empty store, please come back later!</P>
+		{{/if}}
 
-	{{#if data}}
-	<p>Cart: 0</p>
-	{{else}}
-	<P>Empty store, please come back later!</P>
-	{{/if}}
+		<div class="grid-container">
 
-	{{#each data}}
+			{{#each data}}
 
-	<div class="grid-item"><img src="{{this.imgUrl}}" alt="image">
-		<div class="grid-item-details">
-			<p><b>{{this.name}}</b></p>
-			<p>${{this.price}}</p>
-			<span class="text-muted">{{this.quantity}}</span>
+			<div class='grid-item' style="background-image: url({{this.imgUrl}})">
+				<div class='font-weight-bold'>
+					{{this.name}}
+				</div>
+				{{!-- <div class='text-end'>
+					{/* set onClick event to handleDelete with sku as param */}
+					<button type='button' class='btn btn-danger btn-sm' onClick={ ()=>
+						this.handleDelete(this.sku)}>Delete</button>
+					<Link class="btn btn-link" to={`/product/${this.sku}`}>Detail</Link>
+				</div> --}}
+				<div>Description: {{this.description}}</div>
+				<div>Quantity: {{this.quantity}}</div>
+				<div>Price: <span class='text-success'>${{this.price}} </span></div>
+			</div>
+
+			{{/each}}
 		</div>
-	</div>
-
-	{{/each}}
-</div>
+	</section>
+</main>
