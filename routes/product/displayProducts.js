@@ -8,17 +8,19 @@ module.exports = async (req, res, next) => {
     // find all products from productDB
     let products = await Product.find({});
 
+    console.log('products'. products);
     let results = products.map(item => {
         return {
             id: item._id,
             name: item.name,
             price: item.price,
             description: item.description,
-            quantity: item.quantity
+            quantity: item.quantity,
+            imgUrl: item.imgUrl
         }
     });
 
-    res.render('displayProductsView',
+    res.render('./product/displayProductsView',
         { title: "List of Products", data: results });
 
 };

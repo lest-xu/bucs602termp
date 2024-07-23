@@ -14,8 +14,8 @@ let orderSchema = new Schema({
 	customerId: String,
 	totalPrice: Number,
 	totalItems: Number,
-	createdOn: String,
-	modifiedOn: String,
+	createdOn: { type: Date, default: Date.now },
+	modifiedOn: { type: Date, default: Date.now },
 	products: [
 		{productId: String, orderedTotal: Number}
 	]

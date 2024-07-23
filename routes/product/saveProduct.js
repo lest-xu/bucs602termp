@@ -4,7 +4,7 @@ const Product = productDB.getModel();
 module.exports = async (req, res, next) => {
 
 	// define the product model object from productDB
-	let product = product({
+	let product = Product({
 		name: req.body.name, // assign the value from input
 		price: req.body.price,
 		description: req.body.description,
@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 	});
 
 	// save the product and redirect to products' home page
-	Product.save((error) => {
+	product.save((error) => {
 		if (error) {
 			console.log(`Save Error: ${error}`);
 		}
