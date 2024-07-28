@@ -1,12 +1,12 @@
 function addProduct(){
-    window.location.href = '/products/add';
+    window.location.href = '/admin/products/add';
 }
 
-function cancelAdd(){
-    window.location.href = '/products';
+function cancelAddProduct(){
+    window.location.href = '/admin';
 }
 
-function cancelDelete(){
-    window.location.href = '/products';
+function cancelDeleteProduct(){
+    window.location.href = '/admin';
 }
 

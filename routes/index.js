@@ -1,53 +1,41 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
+const storeController = require('../controllers/storeController.js');
+const adminController = require('../controllers/adminController.js');
+const apiController = require('../controllers/apiController.js');
+const viewProductDetails = require("./product/viewProductDetails");
 
-var displayStore = require("./displayStore");
-
-// // order modules
-// var displayOrders = require("./order/displayOrders");
-// var addOrder = require("./order/addOrder");
-// var saveOrder = require("./order/saveOrder");
-// var editOrder = require("./order/editOrder");
-// var saveOrderAfterEdit = require("./order/saveOrderAfterEdit");
-// var deleteOrder = require("./order/deleteOrder");
-// var deleteOrderAfterConfirm = require("./order/deleteOrderAfterConfirm");
-
-// // customer modules
-// var displayCustomers = require("./customer/displayCustomers");
-// var addCustomer = require("./customer/addCustomer");
-// var saveCustomer = require("./customer/saveCustomer");
-// var editCustomer = require("./customer/editCustomer");
-// var saveCustomerAfterEdit = require("./customer/saveCustomerAfterEdit");
-// var deleteCustomer = require("./customer/deleteCustomer");
-// var deleteCustomerAfterConfirm = require("./customer/deleteCustomerAfterConfirm");
-
-// product modules
-var displayProducts = require("./product/displayProducts");
-var addProduct = require("./product/addProduct");
-var saveProduct = require("./product/saveProduct");
-var editProduct = require("./product/editProduct");
-var saveProductAfterEdit = require("./product/saveProductAfterEdit");
-var deleteProduct = require("./product/deleteProduct");
-var deleteProductAfterConfirm = require("./product/deleteProductAfterConfirm");
-var viewProductDetails = require("./product/viewProductDetails");
-
-// shopping cart home page
-router.get('/', displayStore);
-
-// order routes
-
-// customer routes
-
-
-// product routes
-router.get('/products', displayProducts);
+// store home page
+router.get('/', storeController.displayStore);
 router.get('/products/:id', viewProductDetails);
-router.get('/products/add', addProduct);
-router.post('/products/add', saveProduct);
-router.get('/products/edit/:id', editProduct);
-router.post('/products/edit/', saveProductAfterEdit);
-router.get('/products/delete/:id', deleteProduct);
-router.post('/products/delete', deleteProductAfterConfirm);
+router.post('/add-to-cart', storeController.addToCart);
+router.get('/cart', storeController.viewCart);
+router.post('/checkout', storeController.checkout);
+router.get('/orders', storeController.viewOrders);
+router.post('/remove-from-cart/:id', storeController.removeFromCart);
+
+// admin page
+router.get('/admin', adminController.displayAdmin);
+// add product
+router.get('/admin/products/add', adminController.addProduct);
+router.post('/admin/products/add', adminController.saveProduct);
+// edit product
+router.get('/admin/products/edit/:id', adminController.editProduct);
+router.post('/admin/products/edit/', adminController.saveProductAfterEdit);
+// delete product
+router.get('/admin/products/delete/:id', adminController.deleteProduct);
+router.post('/admin/products/delete', adminController.deleteProductAfterConfirm);
+
+router.get('/admin/customers', adminController.displayCustomers);
+router.get('/admin/customer/:id', adminController.viewCustomerOrders);
+router.post('/admin/update-order/:id', adminController.updateOrder);
+router.post('/admin/delete-order/:id', adminController.deleteOrder);
+
+
+// REST API
+router.get('/api/products', apiController.getProducts);
+router.get('/api/products/name/:name', apiController.getProductByName);
+router.get('/api/products/price-range', apiController.getProductsByPriceRange);
 
 module.exports = router;

@@ -1,0 +1,25 @@
+<h1>Your Order History</h1>
+{{#if orders.length}}
+<ul>
+    {{#each orders}}
+    <li>
+        <strong>Order Date:</strong> {{this.createdOn}}<br>
+        <strong>Items:</strong>
+        <ul>
+            {{#each this.items}}
+            <li>{{this.name}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
+            {{/each}}
+        </ul>
+        <strong>Customer Info:</strong>
+        <ul>
+            <li>First Name: {{this.shippingInfo.firstName}}</li>
+            <li>Last Name: {{this.shippingInfo.lastName}}</li>
+            <li>Email: {{this.shippingInfo.email}}</li>
+            <li>Phone: {{this.shippingInfo.phone}}</li>
+        </ul>
+    </li>
+    {{/each}}
+</ul>
+{{else}}
+<p>You have no previous orders.</p>
+{{/if}}

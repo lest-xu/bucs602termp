@@ -1,7 +1,15 @@
 <main class="flex-item">
 	<section class="products">
 		{{#if data}}
-		<h2 class="text-right">🛒 Cart <span class="badge badge-primary">8</span></h2>
+		<h2 class="text-right">🛒 Cart <span class="badge badge-primary">{{data.length}}</span></h2>
+
+		<form class="search-form" action="/" method="get">
+			<input type="text" name="search" class="form-control ds-input" placeholder="Search..." value="{{searchQuery}}">
+			<button type="submit">Search</button>
+		</form>
+		{{!-- <div class="cart-icon">
+			<a href="/cart"><img src="/images/cart-icon.png" alt="Cart"></a>
+		</div> --}}
 		{{else}}
 		<P>Empty store, please come back later!</P>
 		{{/if}}
@@ -11,13 +19,18 @@
 			{{#each data}}
 
 			<div class='grid-item' style="background-image: url({{this.imgUrl}})">
-				<div class='font-weight-bold'> <a class="btn btn-link" href="/products/{{this.id}}" title="{{this.desciption}}">{{this.name}}</a> </div>
+				<div class='font-weight-bold'> <a class="btn btn-link" href="/products/{{this.id}}"
+						title="{{this.desciption}}">{{this.name}}</a> </div>
 				<div class='text-right'>
 					{{#if this.quantity}}
-					<button type='button' class='btn btn-success btn-sm' >Add to Cart</button>
+					<form action="/add-to-cart" method="post">
+						<input type="hidden" name="productId" value="{{this.id}}">
+						<input type="number" name="quantity" min="1" max="{{this.quantity}}" value="1">
+						<button type='submit' class='btn btn-success btn-sm'>Add to Cart</button>
+					</form>
 					{{/if}}
 				</div>
-				<br/>
+				<br />
 				<div>In Stock: {{this.quantity}}</div>
 				<div>Price: <span class='text-success'>${{this.price}} </span></div>
 			</div>

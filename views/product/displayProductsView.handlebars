@@ -1,4 +1,5 @@
 <div>
+	<h3>Product List</h3>
 	<div class="table-responsive">
 		<table class="table table-condensed">
 			{{#if data}}
@@ -25,8 +26,8 @@
 						<td>{{this.quantity}}</td>
 						</td>
 						<td>
-							<a href="/products/edit/{{this.id}}">Edit</a> | 
-							<a href="/products/delete/{{this.id}}">Delete</a>
+							<a href="/admin/products/edit/{{this.id}}">Edit</a> | 
+							<a href="/admin/products/delete/{{this.id}}">Delete</a>
 						</td>
 					</tr>
 				{{/each}}
