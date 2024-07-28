@@ -4,6 +4,7 @@
 			{{#if data}}
 			<thead>
 				<tr>
+					<th>Image</th>
 					<th>Name</th>
 					<th>Price</th>
 					<th>Description</th>
@@ -17,6 +18,7 @@
 			<tbody>
 				{{#each data}}
 					<tr>
+						<td><img src="{{this.imgUrl}}" style="height: 25px;" alt="{{this.name}}"></td>
 						<td>{{this.name}}</td>
 						<td>{{this.price}}</td>
 						<td>{{this.description}}</td>

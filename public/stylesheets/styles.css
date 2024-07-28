@@ -71,9 +71,9 @@ header nav ul li a {
 }
 
 /* set the navbar link hover effect */
-header nav ul li a:hover {
-  border-bottom: 2px solid #333; /* set underline effect on hover */
-}
+/* header nav ul li a:hover {
+  border-bottom: 2px solid #438684; 
+} */
 
 /* set the navbar link focus effect */
 header nav ul li a:focus {

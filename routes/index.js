@@ -30,6 +30,7 @@ var editProduct = require("./product/editProduct");
 var saveProductAfterEdit = require("./product/saveProductAfterEdit");
 var deleteProduct = require("./product/deleteProduct");
 var deleteProductAfterConfirm = require("./product/deleteProductAfterConfirm");
+var viewProductDetails = require("./product/viewProductDetails");
 
 // shopping cart home page
 router.get('/', displayStore);
@@ -41,6 +42,7 @@ router.get('/', displayStore);
 
 // product routes
 router.get('/products', displayProducts);
+router.get('/products/:id', viewProductDetails);
 router.get('/products/add', addProduct);
 router.post('/products/add', saveProduct);
 router.get('/products/edit/:id', editProduct);

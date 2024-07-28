@@ -1,0 +1,16 @@
+{{#if data}}
+
+<div class="card" style="width: 18rem;">
+    <img src="{{data.imgUrl}}" class="card-img-top" alt="{{data.name}}">
+    <div class="card-body">
+        <h5 class="card-title">{{data.name}}</h5>
+        <p class="card-text">${{data.price}}</p>
+        <p class="card-text">{{data.description}}</p>
+        <a href="/products" class="btn btn-success">Add to Cart</a>
+    </div>
+</div>
+{{else}}
+<tr>
+    <td colspan="3">No Products found...</td>
+</tr>
+{{/if}}

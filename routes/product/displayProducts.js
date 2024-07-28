@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
     // find all products from productDB
     let products = await Product.find({});
 
-    console.log('products'. products);
     let results = products.map(item => {
         return {
             id: item._id,
