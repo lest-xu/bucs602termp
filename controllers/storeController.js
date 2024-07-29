@@ -57,18 +57,15 @@ module.exports = {
         let { productId, quantity } = req.body;
         quantity = parseInt(quantity);
 
-        console.log(req.body);
         if (req.session && !req.session.cart) {
             req.session.cart = [];
         }
         let cart = [];
 
-        console.log('req.session', req.session);
         if (req.session && req.session.cart) {
             cart = req.session.cart
         }
 
-        console.log(cart);
         let product = cart.find(item => item.id === productId);
         if (product) {
             product.quantity += quantity;
@@ -83,7 +80,7 @@ module.exports = {
         let cart = [];
         if (req.session && req.session.cart) {
             cart = req.session.cart;
-            console.log('viewcart',req.session);
+            // console.log('viewcart', req.session);
             let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
 
             cart = cart.map(item => {
@@ -92,13 +89,35 @@ module.exports = {
                     ...item,
                     name: product.name,
                     price: product.price,
+                    imgUrl: product.imgUrl,
                     total: product.price * item.quantity
                 };
             });
 
         }
+        // calculate the total cost and total items in the cart
+        let grandTotal = cart.reduce((sum, item) => sum + item.total, 0);
+        let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+        res.render('cartView', { title: "Your Cart", cart, grandTotal, totalQuantity });
+    },
 
-        res.render('cartView', { title: "Your Cart", cart });
+    updateCart: (req, res, next) => {
+        let { productId, quantity } = req.body;
+        quantity = parseInt(quantity);
+
+        if (!req.session.cart) {
+            return res.redirect('/cart');
+        }
+
+        let cart = req.session.cart;
+        let product = cart.find(item => item.id === productId);
+
+        if (product) {
+            product.quantity = quantity;
+        }
+
+        res.redirect('/cart');
     },
 
     checkout: async (req, res, next) => {
@@ -146,9 +165,13 @@ module.exports = {
     },
 
     removeFromCart: (req, res, next) => {
-        let productId = req.params.id;
-        let cart = req.session.cart || [];
+        let { productId } = req.body;
 
+        if (!req.session.cart) {
+            return res.redirect('/cart');
+        }
+
+        let cart = req.session.cart;
         req.session.cart = cart.filter(item => item.id !== productId);
 
         res.redirect('/cart');

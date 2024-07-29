@@ -1,19 +1,36 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm"></div>
-        <div class="col-sm">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <h3>Your Cart</h3>
             {{#if cart.length}}
-            <ul>
+            <ul class="list-group mb-3">
                 {{#each cart}}
-                <li>{{this.name}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
+                <li class="list-group-item">
+                    <img src="{{this.imgUrl}}" alt="{{this.name}}" style="height: 25px;">
+                    <span>{{this.name}} - Quantity:</span>
+                    <form action="/update-cart" method="post" style="display:inline;">
+                        <input type="hidden" name="productId" value="{{this.id}}">
+                        <input type="number" name="quantity" value="{{this.quantity}}" min="1">
+                        <button type="submit" class="btn btn-success btn-sm">📝Update</button>
+                    </form>
+                    <form action="/remove-from-cart" method="post" style="display:inline;">
+                        <input type="hidden" name="productId" value="{{this.id}}">
+                        <button type="submit" class="btn btn-default btn-sm">❌</button>
+                    </form>
+                    <span>- Total: ${{this.total}}</span>
+                </li>
                 {{/each}}
             </ul>
-            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+
+            <h5>Items: <span class="badge badge-primary">{{totalQuantity}}</span></h5>
+            <h5>💰 Total: <span class="badge badge-success">${{grandTotal}}</span></h5>
+            <p class="text-right"><a href="/checkout" class="btn btn-primary mt-3">Proceed to Checkout</a></p>
+            
             {{else}}
             <p>Your cart is empty.</p>
             {{/if}}
         </div>
-        <div class="col-sm"></div>
+        <div class="col-md-2"></div>
     </div>
 </div>
