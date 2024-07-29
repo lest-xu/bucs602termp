@@ -123,7 +123,12 @@ module.exports = {
     },
 
     viewOrders: async (req, res, next) => {
-        let orders = await Order.find({ customerId: req.session.customerId });
+        let orders = undefined;
+        if (req.session && req.session.customerId) {
+            console.log('req.session.customerId', req.session.customerId);
+            orders = await Order.find({ customerId: req.session.customerId });
+        }
+
         res.render('orderHistoryView', { title: "Order History", orders });
     },
 
