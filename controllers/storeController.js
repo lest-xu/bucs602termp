@@ -21,7 +21,29 @@ module.exports = {
             };
         });
 
-        res.render('displayStoreView', { title: "X Grocery Store", data: results, searchQuery });
+        let cart = [];
+        if (req.session && req.session.cart) {
+            cart = req.session.cart;
+            
+            let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
+
+            cart = cart.map(item => {
+                let product = products.find(p => p._id.toString() === item.id);
+                return {
+                    ...item,
+                    name: product.name,
+                    price: product.price,
+                    imgUrl: product.imgUrl,
+                    total: product.price * item.quantity
+                };
+            });
+
+        }
+        // calculate the total items in the cart
+        let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+
+        res.render('displayStoreView', { title: "X Grocery Store", data: results, searchQuery, totalQuantity });
     },
 
     viewProductDetails: (req, res, next) => {

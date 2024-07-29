@@ -1,7 +1,7 @@
 <main class="flex-item">
 	<section class="products">
 		{{#if data}}
-		<h2 class="text-right">🛒 Cart <span class="badge badge-primary">{{data.length}}</span></h2>
+		<h2 class="text-right">🛒 Cart <span class="badge badge-primary">{{totalQuantity}}</span></h2>
 		{{!-- <div class="cart-icon">
 			<a href="/cart"><img src="/images/cart-icon.png" alt="Cart"></a>
 		</div> --}}
@@ -21,7 +21,7 @@
 					<form action="/add-to-cart" method="post">
 						<input type="hidden" name="productId" value="{{this.id}}">
 						<input type="number" name="quantity" min="1" max="{{this.quantity}}" value="1">
-						<button type='submit' class='btn btn-success btn-sm'>Add to Cart</button>
+						<button type='submit' class='btn btn-success btn-sm'>➕Add</button>
 					</form>
 					{{/if}}
 				</div>
