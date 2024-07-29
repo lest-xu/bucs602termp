@@ -8,6 +8,8 @@ const apiController = require('../controllers/apiController.js');
 // store home page
 router.get('/', storeController.displayStore);
 router.get('/products/:id', storeController.viewProductDetails);
+
+// cart routes
 router.post('/add-to-cart', storeController.addToCart);
 router.get('/cart', storeController.viewCart);
 router.post('/checkout', storeController.checkout);
