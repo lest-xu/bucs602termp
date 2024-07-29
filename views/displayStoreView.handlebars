@@ -2,14 +2,6 @@
 	<section class="products">
 		{{#if data}}
 		<h2 class="text-right">🛒 Cart <span class="badge badge-primary">{{data.length}}</span></h2>
-
-		<form class="container" action="/" method="get">
-			<div class="col-sm-3"><input type="text" name="search" class="form-control" placeholder="Search groceries..."
-					value="{{searchQuery}}"></div>
-			<div class="col-sm-3"><button type="submit" class="form-control btn btn-sm btn-primary">🔍Search</button>
-			</div>
-			<div class="col-sm-6"></div>
-		</form>
 		{{!-- <div class="cart-icon">
 			<a href="/cart"><img src="/images/cart-icon.png" alt="Cart"></a>
 		</div> --}}
