@@ -12,7 +12,6 @@ router.post('/add-to-cart', storeController.addToCart);
 router.get('/cart', storeController.viewCart);
 router.post('/checkout', storeController.checkout);
 router.get('/orders', storeController.viewOrders);
-// router.post('/remove-from-cart/:id', storeController.removeFromCart);
 router.post('/remove-from-cart', storeController.removeFromCart);
 router.post('/update-cart', storeController.updateCart);
 
