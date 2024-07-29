@@ -1,11 +1,19 @@
-<h1>Your Cart</h1>
-{{#if cart.length}}
-<ul>
-    {{#each cart}}
-    <li>{{this.name}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
-    {{/each}}
-</ul>
-<a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
-{{else}}
-<p>Your cart is empty.</p>
-{{/if}}
+<div class="container">
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <h3>Your Cart</h3>
+            {{#if cart.length}}
+            <ul>
+                {{#each cart}}
+                <li>{{this.name}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
+                {{/each}}
+            </ul>
+            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+            {{else}}
+            <p>Your cart is empty.</p>
+            {{/if}}
+        </div>
+        <div class="col-sm"></div>
+    </div>
+</div>

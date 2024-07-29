@@ -27,7 +27,7 @@ module.exports = {
     viewProductDetails: (req, res, next) => {
         // get product id from params on edit view 
         let id = req.params.id;
-    
+
         // find the product by id
         Product.findById(id, (error, product) => {
             if (error) {
@@ -37,7 +37,7 @@ module.exports = {
             if (!product) {
                 return res.render('404');
             }
-    
+
             // direct to view the product details page
             res.render('./product/viewProductDetails', {
                 title: 'View a product details', data: {
@@ -50,18 +50,25 @@ module.exports = {
                 }
             });
         });
-    
+
     },
 
     addToCart: (req, res, next) => {
         let { productId, quantity } = req.body;
         quantity = parseInt(quantity);
 
-        if (!req.session.cart) {
+        console.log(req.body);
+        if (req.session && !req.session.cart) {
             req.session.cart = [];
         }
-        let cart = req.session.cart;
+        let cart = [];
 
+        console.log('req.session', req.session);
+        if (req.session && req.session.cart) {
+            cart = req.session.cart
+        }
+
+        console.log(cart);
         let product = cart.find(item => item.id === productId);
         if (product) {
             product.quantity += quantity;
@@ -73,18 +80,23 @@ module.exports = {
     },
 
     viewCart: async (req, res, next) => {
-        let cart = req.session.cart || [];
-        let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
+        let cart = [];
+        if (req.session && req.session.cart) {
+            cart = req.session.cart;
+            console.log('viewcart',req.session);
+            let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
 
-        cart = cart.map(item => {
-            let product = products.find(p => p._id.toString() === item.id);
-            return {
-                ...item,
-                name: product.name,
-                price: product.price,
-                total: product.price * item.quantity
-            };
-        });
+            cart = cart.map(item => {
+                let product = products.find(p => p._id.toString() === item.id);
+                return {
+                    ...item,
+                    name: product.name,
+                    price: product.price,
+                    total: product.price * item.quantity
+                };
+            });
+
+        }
 
         res.render('cartView', { title: "Your Cart", cart });
     },
@@ -122,6 +134,7 @@ module.exports = {
         res.redirect('/orders');
     },
 
+    // view the customer orders
     viewOrders: async (req, res, next) => {
         let orders = undefined;
         if (req.session && req.session.customerId) {
