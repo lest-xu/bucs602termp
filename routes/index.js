@@ -4,11 +4,10 @@ const router = express.Router();
 const storeController = require('../controllers/storeController.js');
 const adminController = require('../controllers/adminController.js');
 const apiController = require('../controllers/apiController.js');
-const viewProductDetails = require("./product/viewProductDetails");
 
 // store home page
 router.get('/', storeController.displayStore);
-router.get('/products/:id', viewProductDetails);
+router.get('/products/:id', storeController.viewProductDetails);
 router.post('/add-to-cart', storeController.addToCart);
 router.get('/cart', storeController.viewCart);
 router.post('/checkout', storeController.checkout);
