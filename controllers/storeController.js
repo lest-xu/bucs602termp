@@ -199,13 +199,16 @@ module.exports = {
                 const productsWithDetails = await Promise.all(order.products.map(async item => {
                     // find the product by id from the db
                     const product = await Product.findById(item.id);
+                    // calculate total price
+                    const totalPrice = item.quantity * product.price;
                     // return the product object with udpated name and price
                     return {
                         id: item.id,
                         quantity: item.quantity,
                         name: product.name,
                         price: product.price,
-                        imgUrl: product.imgUrl
+                        imgUrl: product.imgUrl,
+                        total: totalPrice
                     };
                 }));
                 // return the order obejct
