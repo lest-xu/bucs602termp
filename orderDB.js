@@ -11,14 +11,14 @@ let model = null;
 let Schema = mongoose.Schema;
 
 let orderSchema = new Schema({
-	customerId: String,
-	totalPrice: Number,
-	totalItems: Number,
-	createdOn: { type: Date, default: Date.now },
-	modifiedOn: { type: Date, default: Date.now },
-	products: [
-		{productId: String, orderedTotal: Number}
-	]
+	customerId: Schema.Types.ObjectId,
+    items: [
+        {
+            id: Schema.Types.ObjectId,
+            quantity: Number
+        }
+    ],
+    date: Date
 }, {
 	collection: 'orders'
 });
