@@ -146,6 +146,7 @@ module.exports = {
 
     checkout: async (req, res, next) => {
         let { firstName, lastName, email, phone } = req.body;
+        console.log('req.body',req.body);
         let cart = req.session.cart || [];
 
         // make sure the item is available
@@ -174,8 +175,7 @@ module.exports = {
         let order = new Order({
             customerId: req.session.customerId,
             items: cart,
-            date: new Date(),
-            customerInfo: { firstName, lastName, email, phone }
+            date: new Date()
         });
         await order.save();
 
