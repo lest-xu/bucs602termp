@@ -12,13 +12,20 @@ let Schema = mongoose.Schema;
 
 let orderSchema = new Schema({
 	customerId: Schema.Types.ObjectId,
+    customerId: { type: Schema.Types.ObjectId, ref: 'Customer' },
     items: [
         {
-            id: Schema.Types.ObjectId,
+            id: { type: Schema.Types.ObjectId, ref: 'Product' },
             quantity: Number
         }
     ],
-    date: Date
+    date: { type: Date, default: Date.now },
+    customerInfo: {
+        firstName: String,
+        lastName: String,
+        email: String,
+        phone: String
+    }
 }, {
 	collection: 'orders'
 });

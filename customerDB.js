@@ -11,10 +11,10 @@ let model = null;
 let Schema = mongoose.Schema;
 
 let customerSchema = new Schema({
-	firstName: String,
-	lastName: String,
+	firstName: { type: String, required: true },
+	lastName: { type: String, required: true },
 	phone: String,
-	email: String
+    email: { type: String, required: true, unique: true }
 }, {
 	collection: 'customers'
 });
