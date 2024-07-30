@@ -2,6 +2,8 @@ const productDB = require('../productDB.js');
 const Product = productDB.getModel();
 const orderDB = require('../orderDB.js');
 const Order = orderDB.getModel();
+const customerDB = require('../customerDB.js');
+const Customer = customerDB.getModel();
 
 module.exports = {
     displayStore: async (req, res, next) => {
@@ -24,7 +26,7 @@ module.exports = {
         let cart = [];
         if (req.session && req.session.cart) {
             cart = req.session.cart;
-            
+
             let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
 
             cart = cart.map(item => {
@@ -41,7 +43,7 @@ module.exports = {
         }
         // calculate the total items in the cart
         let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+
 
         res.render('displayStoreView', { title: "X Grocery Store", data: results, searchQuery, totalQuantity });
     },
@@ -120,7 +122,7 @@ module.exports = {
         // calculate the total cost and total items in the cart
         let grandTotal = cart.reduce((sum, item) => sum + item.total, 0);
         let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+
         res.render('cartView', { title: "Your Cart", cart, grandTotal, totalQuantity });
     },
 
@@ -159,6 +161,13 @@ module.exports = {
             let product = await Product.findById(item.id);
             product.quantity -= item.quantity;
             await product.save();
+        }
+
+        // find or create customer
+        let customer = await Customer.findOne({ email: email });
+        if (!customer) {
+            customer = new Customer({ firstName, lastName, email, phone });
+            await customer.save();
         }
 
         // create the order

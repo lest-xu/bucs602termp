@@ -12,6 +12,12 @@ module.exports = {
         // find all products from productDB
         let products = await Product.find({});
 
+        let customers = await Customer.find({});
+
+        let orders = await Order.find({});
+
+        console.log(orders);
+
         let results = products.map(item => {
             return {
                 id: item._id,
@@ -23,7 +29,7 @@ module.exports = {
             }
         });
 
-        res.render('./product/displayProductsView', { title: "Admin - X Grocery Store", data: results });
+        res.render('./product/displayProductsView', { title: "Admin - X Grocery Store", data: results, customers, orders });
     },
 
     // GET Add Product
