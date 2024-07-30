@@ -259,16 +259,20 @@ module.exports = {
 
     /****** Orders Management Section ******/
     updateOrder: async (req, res) => {
+        // get orderId and itemId from params
         const { orderId, itemId } = req.params;
+        // get udpated quantity of the item from the input
         const { quantity } = req.body;
-        console.log('req.params',req.params);
-        console.log('req.body',req.body);
+        
         try {
+            // get the order by order id
             const order = await Order.findById(orderId);
             if (order) {
-                const item = order.products.id(itemId);
-                if (item) {
-                    item.quantity = quantity;
+                // find the product from the order
+                const product = order.products.find(product => product.id.toString() === itemId);
+
+                if (product) {
+                    product.quantity = quantity;
                     await order.save();
                 }
             }
