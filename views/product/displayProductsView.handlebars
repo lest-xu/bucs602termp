@@ -49,7 +49,7 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
-					<th></th>
+					<th>Orders</th>
 				</tr>
 			</thead>
 			{{else}}
@@ -62,18 +62,11 @@
 						<td>{{this.email}}</td>
 						<td>{{this.phone}}</td>
 						<td>
-							<a href="/admin/products/edit/{{this.id}}">Edit</a> | 
-							<a href="/admin/products/delete/{{this.id}}">Delete</a>
+							<a href="/admin/customers/{{this.id}}">View Orders</a>
 						</td>
 					</tr>
 				{{/each}}
 			</tbody>
-			<tfooter>
-				<tr><td>
-				<button class="btn btn-primary" 
-						onClick="addProduct();">Add</button>
-				</td></tr>
-			</tfooter>
 		</table>
 	</div>
 
