@@ -16,8 +16,6 @@ module.exports = {
 
         let orders = await Order.find({});
 
-        console.log(orders);
-
         let productResults = products.map(item => ({
             id: item._id,
             name: item.name,
@@ -51,6 +49,62 @@ module.exports = {
 
     },
 
+    // GET show customer details page
+    viewCustomerDetails: async (req, res, next) => {
+        // get customer id from params on edit view 
+        let id = req.params.id;
+
+        // find the customer by id
+        let customer = await Customer.findById(id);
+        console.log(customer);
+        // make sure found the customer
+        if (!customer) {
+            return res.render('404');
+        }
+
+        // find the orders by customer id
+        orders = await Order.find({ customerId: customer.id });
+
+        // map the orders with Promise.all
+        orderResults = await Promise.all(orders.map(async order => {
+            // for each product in the order, fetch the product details
+            const productsWithDetails = await Promise.all(order.products.map(async item => {
+                // find the product by id from the db
+                const product = await Product.findById(item.id);
+                // calculate total price
+                const totalPrice = item.quantity * product.price;
+                // return the product object with udpated name and price
+                return {
+                    id: item.id,
+                    quantity: item.quantity,
+                    name: product.name,
+                    price: product.price,
+                    imgUrl: product.imgUrl,
+                    total: totalPrice
+                };
+            }));
+            // return the order obejct
+            return {
+                id: order._id,
+                customerId: order.customerId,
+                date: order.date,
+                products: productsWithDetails // updated Product obejct with name and price
+            };
+        }));
+
+        res.render('./customer/viewCustomerDetails', {
+            title: "View Customer Details",
+            customer: {
+                id: customer._id,
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                email: customer.email,
+                phone: customer.phone
+            },
+            orders: orderResults
+        });
+    },
+
     // GET Add Product
     addProduct: async (req, res, next) => {
         // direct to add product page
@@ -67,7 +121,7 @@ module.exports = {
             quantity: req.body.quantity,
             imgUrl: req.body.imgUrl
         });
-    
+
         // save the product and redirect to admin page
         product.save((error) => {
             if (error) {
@@ -75,7 +129,7 @@ module.exports = {
             }
             res.redirect('/admin');
         });
-    
+
     },
 
     // GET Edit Product
@@ -112,7 +166,7 @@ module.exports = {
     saveProductAfterEdit: async (req, res, next) => {
         // get product id from body on edit view 
         let id = req.body.id;
-        
+
         // find the product by id
         Product.findById(id, (error, product) => {
             if (error) {
@@ -122,7 +176,7 @@ module.exports = {
             if (!product) {
                 return res.render('404');
             }
-            
+
             // update first and last name
             product.name = req.body.name;
             product.price = req.body.price;
@@ -136,16 +190,16 @@ module.exports = {
                 }
                 res.redirect('/admin');
             });
-    
+
         });
-    
+
     },
 
     // GET Delete Product
     deleteProduct: async (req, res, next) => {
         // get product id from params on edit view 
         let id = req.params.id;
-    
+
         // find the product by id
         Product.findById(id, (error, product) => {
             if (error) {
@@ -155,19 +209,21 @@ module.exports = {
             if (!product) {
                 return res.render('404');
             }
-    
+
             // render to delete product view
-            res.render('./product/deleteProductView', {title: 'Confirm deleting product',data: {
-                id: id,
-                name: product.name,
-                price: product.price,
-                description: product.description,
-                quantity: product.quantity,
-                imgUrl: product.imgUrl
-            }});
-            
+            res.render('./product/deleteProductView', {
+                title: 'Confirm deleting product', data: {
+                    id: id,
+                    name: product.name,
+                    price: product.price,
+                    description: product.description,
+                    quantity: product.quantity,
+                    imgUrl: product.imgUrl
+                }
+            });
+
         });
-    
+
     },
 
     // POST Delete Product
@@ -175,7 +231,7 @@ module.exports = {
 
         // get product id from body on edit view 
         let id = req.body.id;
-    
+
         // find the product by id
         Product.findById(id, (error, product) => {
             if (error) {
@@ -185,16 +241,16 @@ module.exports = {
             if (!product) {
                 return res.render('404');
             }
-    
+
             // remove the product
             product.remove((error) => {
                 if (error) {
                     console.log(`Delete product Error: ${error}`);
                 }
-    
+
                 // redirect to admin page
                 res.redirect('/admin');
-    
+
             });
         });
 

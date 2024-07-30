@@ -29,8 +29,8 @@ router.post('/admin/products/edit/', adminController.saveProductAfterEdit);
 router.get('/admin/products/delete/:id', adminController.deleteProduct);
 router.post('/admin/products/delete', adminController.deleteProductAfterConfirm);
 
-router.get('/admin/customers', adminController.displayCustomers);
-router.get('/admin/customer/:id', adminController.viewCustomerOrders);
+// router.get('/admin/customers', adminController.displayCustomers);
+router.get('/admin/customers/:id', adminController.viewCustomerDetails);
 router.post('/admin/update-order/:id', adminController.updateOrder);
 router.post('/admin/delete-order/:id', adminController.deleteOrder);
 
