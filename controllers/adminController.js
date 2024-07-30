@@ -40,7 +40,7 @@ module.exports = {
             products: order.products
         }));
 
-        res.render('./product/displayProductsView', {
+        res.render('./displayAdminView', {
             title: "Admin - X Grocery Store",
             data: productResults,
             customers: customerResults,
@@ -104,7 +104,8 @@ module.exports = {
             orders: orderResults
         });
     },
-
+    
+    /****** Product Management Section ******/
     // GET Add Product
     addProduct: async (req, res, next) => {
         // direct to add product page
@@ -256,15 +257,7 @@ module.exports = {
 
     },
 
-    displayCustomers: async (req, res, next) => {
-        let customers = await Customer.find({});
-        res.render('customerListView', { title: "Customers - X Grocery Store", customers });
-    },
-
-    viewCustomerOrders: async (req, res, next) => {
-        let orders = await Order.find({ customerId: req.params.id });
-        res.render('customerOrderHistoryView', { title: "Customer Orders - X Grocery Store", orders });
-    },
+    /****** Orders Management Section ******/
 
     updateOrder: async (req, res, next) => {
         let { items } = req.body;
