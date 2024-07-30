@@ -46,7 +46,7 @@ module.exports = {
 
         // find the customer by id
         let customer = await Customer.findById(id);
-        
+
         // make sure found the customer
         if (!customer) {
             return res.render('404');
@@ -73,11 +73,19 @@ module.exports = {
                     total: totalPrice
                 };
             }));
+
+            // calculate the total cost and total items each order
+            let grandTotal = productsWithDetails.reduce((sum, item) => sum + item.total, 0);
+            let totalQuantity = order.products.reduce((sum, item) => sum + item.quantity, 0);
+
+
             // return the order obejct
             return {
                 id: order._id,
                 customerId: order.customerId,
                 date: order.date,
+                grandTotal: grandTotal,
+                totalQuantity: totalQuantity,
                 products: productsWithDetails // updated Product obejct with name and price
             };
         }));
@@ -94,7 +102,7 @@ module.exports = {
             orders: orderResults
         });
     },
-    
+
     /****** Product Management Section ******/
     // GET Add Product
     addProduct: async (req, res, next) => {
@@ -253,7 +261,7 @@ module.exports = {
         const { orderId, itemId } = req.params;
         // get udpated quantity of the item from the input
         const { quantity } = req.body;
-        
+
         try {
             // get the order by order id
             const order = await Order.findById(orderId);
@@ -275,7 +283,7 @@ module.exports = {
 
     deleteOrder: async (req, res) => {
         const { orderId } = req.params;
-    
+
         try {
             const order = await Order.findByIdAndDelete(orderId);
             res.redirect(`/admin/customers/${order.customerId}`);

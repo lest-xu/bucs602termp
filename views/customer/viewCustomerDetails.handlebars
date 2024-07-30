@@ -18,13 +18,13 @@
             </div>
 
             {{#if orders.length}}
-            <h5 class="card-title mt-3">Total Orders: <span class="badge badge-light">{{orders.length}}</span></h5>
+            <h5 class="card-title mt-3">Previous Orders: <span class="badge badge-light">{{orders.length}}</span></h5>
 
-            <ul class="list-group">
+            <ul class="list-group list-group-flush">
                 {{#each orders}}
                 <li class="list-group-item mb-3">
-                    <strong>Order Date:</strong> {{this.date}}<br>
-                    <strong>Items:</strong>
+                    <p><strong>Order Date: </strong>{{this.date}}</p>
+                    <p><strong>{{this.totalQuantity}} Items, Total ${{this.grandTotal}} :</strong></p>
                     <ul>
                         {{#each this.products}}
                         <li> <img src="{{this.imgUrl}}" alt="{{this.name}}" style="height: 25px;">
@@ -34,10 +34,11 @@
                                 <input type="number" name="quantity" value="{{this.quantity}}" min="1">
                                 <button type="submit" class="btn btn-primary btn-sm">Update</button>
                             </form>
-                            - Total: ${{this.total}}
+                            <p>Sub-total: ${{this.total}}</p>
                         </li>
                         {{/each}}
                     </ul>
+                    
                     <div class="mt-2 text-right">
                         <!-- delete the order -->
                         <form action="/admin/orders/delete/{{this.id}}" method="POST" class="d-inline">
