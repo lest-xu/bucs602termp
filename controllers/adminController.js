@@ -14,8 +14,6 @@ module.exports = {
 
         let customers = await Customer.find({});
 
-        let orders = await Order.find({});
-
         let productResults = products.map(item => ({
             id: item._id,
             name: item.name,
@@ -33,18 +31,10 @@ module.exports = {
             phone: customer.phone
         }));
 
-        let orderResults = orders.map(order => ({
-            id: order._id,
-            customerId: order.customerId,
-            date: order.date,
-            products: order.products
-        }));
-
         res.render('./displayAdminView', {
             title: "Admin - X Grocery Store",
             data: productResults,
-            customers: customerResults,
-            orders: orderResults
+            customers: customerResults
         });
 
     },

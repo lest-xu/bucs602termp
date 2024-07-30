@@ -70,40 +70,4 @@
 		</table>
 	</div>
 
-	<h3>Orders List</h3>
-	<div class="table-responsive">
-		<table class="table table-condensed">
-			{{#if orders}}
-			<thead>
-				<tr>
-					<th>Customer Id</th>
-					<th>Date</th>
-					<th>Items</th>
-				</tr>
-			</thead>
-			{{else}}
-			<tr><td colspan="3">No Products found ... Add One!</td></tr>
-			{{/if}}
-			<tbody>
-				{{#each orders}}
-					<tr>
-						<td>{{this.customerId}}</td>
-						<td>{{this.date}}</td>
-						<td>{{this.items.length}}</td>
-						<td>
-							<a href="/admin/products/edit/{{this.id}}">Edit</a> | 
-							<a href="/admin/products/delete/{{this.id}}">Delete</a>
-						</td>
-					</tr>
-				{{/each}}
-			</tbody>
-			<tfooter>
-				<tr><td>
-				<button class="btn btn-primary" 
-						onClick="addProduct();">Add</button>
-				</td></tr>
-			</tfooter>
-		</table>
-	</div>
-
 </div>
