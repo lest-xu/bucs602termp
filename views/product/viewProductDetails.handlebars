@@ -2,20 +2,27 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm"></div>
-        <div class="col-sm">
-            <div class="card" >
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    {{data.name}}
+                </div>
                 <img src="{{data.imgUrl}}" class="card-img-top" alt="{{data.name}}">
                 <div class="card-body">
                     <h5 class="card-title">Name: {{data.name}}</h5>
                     <p class="card-text">Price: ${{data.price}}</p>
-                    <p class="card-text">Stoce Quantity {{data.quantity}}</p>
-                    <p class="card-text">Description {{data.description}}</p>
-                    <a href="/products" class="btn btn-success">Add to Cart</a>
+                    <p class="card-text">Stoce Quantity: {{data.quantity}}</p>
+                    <p class="card-text">Description: {{data.description}}</p>
+                    <form action="/add-to-cart" method="post">
+                        <input type="hidden" name="productId" value="{{data.id}}">
+                        <input type="number" name="quantity" min="1" max="{{data.quantity}}" value="1">
+                        <button type='submit' class='btn btn-success btn-sm'>➕ Add</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="col-sm"></div>
+        <div class="col-md-4"></div>
     </div>
 </div>
 
