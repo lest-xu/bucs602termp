@@ -29,10 +29,12 @@ router.post('/admin/products/edit/', adminController.saveProductAfterEdit);
 router.get('/admin/products/delete/:id', adminController.deleteProduct);
 router.post('/admin/products/delete', adminController.deleteProductAfterConfirm);
 
-// router.get('/admin/customers', adminController.displayCustomers);
+// customer details page
 router.get('/admin/customers/:id', adminController.viewCustomerDetails);
-router.post('/admin/update-order/:id', adminController.updateOrder);
-router.post('/admin/delete-order/:id', adminController.deleteOrder);
+// update each order's item quantity
+router.post('/admin/orders/update/:orderId/item/:itemId', adminController.updateOrder);
+// delete an order
+router.post('/admin/orders/delete/:orderId', adminController.deleteOrder);
 
 
 // REST API

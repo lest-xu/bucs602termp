@@ -56,7 +56,7 @@ module.exports = {
 
         // find the customer by id
         let customer = await Customer.findById(id);
-        console.log(customer);
+        
         // make sure found the customer
         if (!customer) {
             return res.render('404');
@@ -258,15 +258,36 @@ module.exports = {
     },
 
     /****** Orders Management Section ******/
-
-    updateOrder: async (req, res, next) => {
-        let { items } = req.body;
-        await Order.findByIdAndUpdate(req.params.id, { items });
-        res.redirect('/admin/customers');
+    updateOrder: async (req, res) => {
+        const { orderId, itemId } = req.params;
+        const { quantity } = req.body;
+        console.log('req.params',req.params);
+        console.log('req.body',req.body);
+        try {
+            const order = await Order.findById(orderId);
+            if (order) {
+                const item = order.products.id(itemId);
+                if (item) {
+                    item.quantity = quantity;
+                    await order.save();
+                }
+            }
+            res.redirect(`/admin/customers/${order.customerId}`);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
     },
 
-    deleteOrder: async (req, res, next) => {
-        await Order.findByIdAndDelete(req.params.id);
-        res.redirect('/admin/customers');
+    deleteOrder: async (req, res) => {
+        const { orderId } = req.params;
+    
+        try {
+            const order = await Order.findByIdAndDelete(orderId);
+            res.redirect(`/admin/customers/${order.customerId}`);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
     }
 };

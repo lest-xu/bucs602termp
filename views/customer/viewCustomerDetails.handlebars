@@ -22,16 +22,28 @@
 
             <ul class="list-group">
                 {{#each orders}}
-                <li class="list-group-item">
+                <li class="list-group-item mb-3">
                     <strong>Order Date:</strong> {{this.date}}<br>
                     <strong>Items:</strong>
                     <ul>
                         {{#each this.products}}
                         <li> <img src="{{this.imgUrl}}" alt="{{this.name}}" style="height: 25px;">
-                            {{this.name}} : ${{this.price}} - Quantity: {{this.quantity}} - Total:
-                            ${{this.total}}</li>
+                            {{this.name}} : ${{this.price}} - Quantity:
+                            <form action="/admin/orders/update/{{../this.id}}/item/{{this.id}}" method="POST"
+                                class="d-inline">
+                                <input type="number" name="quantity" value="{{this.quantity}}" min="1">
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                            </form>
+                            - Total: ${{this.total}}
+                        </li>
                         {{/each}}
                     </ul>
+                    <div class="mt-2 text-right">
+                        <!-- delete the order -->
+                        <form action="/admin/orders/delete/{{this.id}}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete Order</button>
+                        </form>
+                    </div>
                 </li>
                 {{/each}}
             </ul>
