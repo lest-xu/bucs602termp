@@ -11,10 +11,10 @@ let model = null;
 let Schema = mongoose.Schema;
 
 let orderSchema = new Schema({
-    customerId: { type: Schema.Types.ObjectId, ref: 'Customer' },
-    items: [
+    customerId: String,
+    products: [
         {
-            productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+            id: String,
             quantity: Number
         }
     ],

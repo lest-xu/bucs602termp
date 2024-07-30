@@ -146,7 +146,7 @@ module.exports = {
 
     checkout: async (req, res, next) => {
         let { firstName, lastName, email, phone } = req.body;
-        console.log('req.body',req.body);
+        console.log('req.body', req.body);
         let cart = req.session.cart || [];
 
         // make sure the item is available
@@ -170,11 +170,12 @@ module.exports = {
             customer = new Customer({ firstName, lastName, email, phone });
             await customer.save();
         }
-
-        // create the order
+        // set the customerId of the session for current customer
+        req.session.customerId = customer._id;
+        // create the order for the current customer
         let order = new Order({
-            customerId: req.session.customerId,
-            items: cart,
+            customerId: customer._id,
+            products: cart,
             date: new Date()
         });
         await order.save();
@@ -187,12 +188,39 @@ module.exports = {
     // view the customer orders
     viewOrders: async (req, res, next) => {
         let orders = undefined;
+        let orderResults = undefined;
         if (req.session && req.session.customerId) {
             console.log('req.session.customerId', req.session.customerId);
             orders = await Order.find({ customerId: req.session.customerId });
+
+            // mpa the orders with Promise.all
+            orderResults = await Promise.all(orders.map(async order => {
+                // for each product in the order, fetch the product details
+                const productsWithDetails = await Promise.all(order.products.map(async item => {
+                    // find the product by id from the db
+                    const product = await Product.findById(item.id);
+                    // return the product object with udpated name and price
+                    return {
+                        id: item.id,
+                        quantity: item.quantity,
+                        name: product.name,
+                        price: product.price,
+                        imgUrl: product.imgUrl
+                    };
+                }));
+                // return the order obejct
+                return {
+                    id: order._id,
+                    customerId: order.customerId,
+                    date: order.date,
+                    products: productsWithDetails // updated Product obejct with name and price
+                };
+            }));
+
+            console.log('cal orders', orderResults);
         }
 
-        res.render('orderHistoryView', { title: "Order History", orders });
+        res.render('orderHistoryView', { title: "Order History", orders: orderResults });
     },
 
     removeFromCart: (req, res, next) => {

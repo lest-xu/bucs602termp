@@ -18,18 +18,37 @@ module.exports = {
 
         console.log(orders);
 
-        let results = products.map(item => {
-            return {
-                id: item._id,
-                name: item.name,
-                price: item.price,
-                description: item.description,
-                quantity: item.quantity,
-                imgUrl: item.imgUrl
-            }
+        let productResults = products.map(item => ({
+            id: item._id,
+            name: item.name,
+            price: item.price,
+            description: item.description,
+            quantity: item.quantity,
+            imgUrl: item.imgUrl
+        }));
+
+        let customerResults = customers.map(customer => ({
+            id: customer._id,
+            firstName: customer.firstName,
+            lastName: customer.lastName,
+            email: customer.email,
+            phone: customer.phone
+        }));
+
+        let orderResults = orders.map(order => ({
+            id: order._id,
+            customerId: order.customerId,
+            date: order.date,
+            products: order.products
+        }));
+
+        res.render('./product/displayProductsView', {
+            title: "Admin - X Grocery Store",
+            data: productResults,
+            customers: customerResults,
+            orders: orderResults
         });
 
-        res.render('./product/displayProductsView', { title: "Admin - X Grocery Store", data: results, customers, orders });
     },
 
     // GET Add Product
