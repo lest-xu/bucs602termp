@@ -3,19 +3,20 @@ const router = express.Router();
 
 const storeController = require('../controllers/storeController.js');
 const adminController = require('../controllers/adminController.js');
+const cartController = require('../controllers/cartController.js');
 const apiController = require('../controllers/apiController.js');
 
 // store home page
 router.get('/', storeController.displayStore);
 router.get('/products/:id', storeController.viewProductDetails);
+router.get('/orders', storeController.viewOrders);
 
 // cart routes
-router.post('/add-to-cart', storeController.addToCart);
-router.get('/cart', storeController.viewCart);
-router.post('/checkout', storeController.checkout);
-router.get('/orders', storeController.viewOrders);
-router.post('/remove-from-cart', storeController.removeFromCart);
-router.post('/update-cart', storeController.updateCart);
+router.post('/add-to-cart', cartController.addToCart);
+router.get('/cart', cartController.viewCart);
+router.post('/checkout', cartController.checkout);
+router.post('/remove-from-cart', cartController.removeFromCart);
+router.post('/update-cart', cartController.updateCart);
 
 // admin page
 router.get('/admin', adminController.displayAdmin);
