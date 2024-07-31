@@ -76,7 +76,7 @@ module.exports = {
 
     checkout: async (req, res, next) => {
         let { firstName, lastName, email, phone } = req.body;
-        console.log('req.body', req.body);
+        
         let cart = req.session.cart || [];
 
         // make sure the item is available
@@ -86,7 +86,7 @@ module.exports = {
                 return res.status(400).send('Insufficient stock for ' + product.name);
             }
         }
-        console.log('checkout...', cart);
+        
         // update the stock when checkout
         for (let item of cart) {
             let product = await Product.findById(item.id);
