@@ -21,19 +21,19 @@
             <ul class="list-group list-group-flush">
                 {{#each orders}}
                 <li class="list-group-item mb-3">
-                    <p><strong>Order Date: </strong>{{this.date}}</p>
-                    <p><strong>{{this.totalQuantity}} Items, Total ${{this.grandTotal}} :</strong></p>
+                    <p><strong>Order Date: </strong>{{formatDate this.date}}</p>
+                    <p><strong>{{this.totalQuantity}} Items, Total ${{formatCurrency this.grandTotal}} :</strong></p>
                     <ul>
                         {{#each this.products}}
                         <li> <img src="{{this.imgUrl}}" alt="{{this.name}}" style="height: 25px;">
-                            {{this.name}} : ${{this.price}}
+                            {{this.name}} : ${{formatCurrency this.price}}
                             <br/>Quantity:
                             <form action="/admin/orders/update/{{../this.id}}/item/{{this.id}}" method="POST"
                                 class="d-inline">
                                 <input type="number" name="quantity" value="{{this.quantity}}" min="1">
                                 <button type="submit" class="btn btn-primary btn-sm">Update</button>
                             </form>
-                            <p>Sub-total: ${{this.total}}</p>
+                            <p>Sub-total: ${{formatCurrency this.total}}</p>
                         </li>
                         {{/each}}
                     </ul>

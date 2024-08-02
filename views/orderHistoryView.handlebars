@@ -10,12 +10,12 @@
             <ul class="list-group">
                 {{#each orders}}
                 <li class="list-group-item">
-                    <strong>Order Date:</strong> {{this.date}}<br>
+                    <strong>Order Date:</strong> {{formatDate this.date}}<br>
                     <strong>Items:</strong>
                     <ul>
                         {{#each this.products}}
                         <li> <img src="{{this.imgUrl}}" alt="{{this.name}}" style="height: 25px;">
-                            {{this.name}} : ${{this.price}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
+                            {{this.name}} : ${{formatCurrency this.price}} - Quantity: {{this.quantity}} - Total: ${{this.total}}</li>
                         {{/each}}
                     </ul>
                 </li>

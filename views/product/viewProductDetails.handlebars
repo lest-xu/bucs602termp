@@ -11,7 +11,7 @@
                 <img src="{{data.imgUrl}}" class="card-img-top" alt="{{data.name}}">
                 <div class="card-body">
                     <h5 class="card-title">Name: {{data.name}}</h5>
-                    <p class="card-text">Price: ${{data.price}}</p>
+                    <p class="card-text">Price: ${{formatCurrency data.price}}</p>
                     <p class="card-text">Stoce Quantity: {{data.quantity}}</p>
                     <p class="card-text">Description: {{data.description}}</p>
                     <form action="/add-to-cart" method="post">

@@ -4,6 +4,7 @@ const orderDB = require('../orderDB.js');
 const Order = orderDB.getModel();
 const customerDB = require('../customerDB.js');
 const Customer = customerDB.getModel();
+const handlebars = require('handlebars');
 
 module.exports = {
 
@@ -76,7 +77,7 @@ module.exports = {
 
     checkout: async (req, res, next) => {
         let { firstName, lastName, email, phone } = req.body;
-        
+
         let cart = req.session.cart || [];
 
         // make sure the item is available
@@ -86,7 +87,7 @@ module.exports = {
                 return res.status(400).send('Insufficient stock for ' + product.name);
             }
         }
-        
+
         // update the stock when checkout
         for (let item of cart) {
             let product = await Product.findById(item.id);
@@ -128,3 +129,15 @@ module.exports = {
         res.redirect('/cart');
     }
 };
+
+// helper - format the currency
+handlebars.registerHelper('formatCurrency', function (value) {
+    return parseFloat(value).toFixed(2);
+});
+
+// helper - format the date
+handlebars.registerHelper('formatDate', function (dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return date.toLocaleDateString(undefined, options);
+});
