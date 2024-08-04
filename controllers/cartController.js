@@ -8,34 +8,46 @@ const handlebars = require('handlebars');
 
 module.exports = {
 
+    // POST add items to cart
     addToCart: (req, res, next) => {
+        // get productId and quantity from the input
         let { productId, quantity } = req.body;
+        // convert quantity to integer
         quantity = parseInt(quantity);
-
+        // create an empty cart in the session if the cart does not exist
         if (req.session && !req.session.cart) {
             req.session.cart = [];
         }
+        // define the empty cart
         let cart = [];
 
+        // check if there are items in the session cart 
         if (req.session && req.session.cart) {
             cart = req.session.cart
         }
 
+        // find the product by id from the cart
         let product = cart.find(item => item.id === productId);
         if (product) {
+            // update the quantity if the item already in the cart
             product.quantity += quantity;
         } else {
+            // add the item to the cart if does not exist in the cart
             cart.push({ id: productId, quantity });
         }
 
         res.redirect('/');
     },
 
+    // GET view items in the cart view page
     viewCart: async (req, res, next) => {
+        // define the empty cart
         let cart = [];
+        // check the items in the session cart
         if (req.session && req.session.cart) {
+            // get cart object from the session cart
             cart = req.session.cart;
-            // console.log('viewcart', req.session);
+            // find the products from the cart in the current session
             let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
 
             cart = cart.map(item => {
@@ -45,7 +57,7 @@ module.exports = {
                     name: product.name,
                     price: product.price,
                     imgUrl: product.imgUrl,
-                    total: product.price * item.quantity
+                    total: product.price * item.quantity // calcualte the total price of each item
                 };
             });
 
