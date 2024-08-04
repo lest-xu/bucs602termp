@@ -7,9 +7,15 @@ const Customer = customerDB.getModel();
 
 module.exports = {
     displayStore: async (req, res, next) => {
+        // defind the searchQuery
         let searchQuery = req.query.search || "";
+        
+        // Search for products by name or description
         let products = await Product.find({
-            name: { $regex: searchQuery, $options: 'i' }
+            $or: [
+                { name: new RegExp(searchQuery, 'i') },
+                { description: new RegExp(searchQuery, 'i') }
+            ]
         });
 
         let results = products.map(item => {
