@@ -28,11 +28,12 @@ module.exports = {
                 imgUrl: item.imgUrl
             };
         });
-
+        // create an empty cart
         let cart = [];
+        // check the cart from the sessions
         if (req.session && req.session.cart) {
             cart = req.session.cart;
-
+            // find the products from the cart in the current session
             let products = await Product.find({ _id: { $in: cart.map(item => item.id) } });
 
             cart = cart.map(item => {
@@ -42,7 +43,7 @@ module.exports = {
                     name: product.name,
                     price: product.price,
                     imgUrl: product.imgUrl,
-                    total: product.price * item.quantity
+                    total: product.price * item.quantity // calcualte the total price of each item
                 };
             });
 
@@ -50,10 +51,10 @@ module.exports = {
         // calculate the total items in the cart
         let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-
         res.render('displayStoreView', { title: "X Grocery Store", data: results, searchQuery, totalQuantity });
     },
 
+    // GET show product details page when clicks the title link
     viewProductDetails: (req, res, next) => {
         // get product id from params on edit view 
         let id = req.params.id;
@@ -85,10 +86,13 @@ module.exports = {
 
     // view the customer orders
     viewOrders: async (req, res, next) => {
+        // init orders and orderResults
         let orders = undefined;
         let orderResults = undefined;
+        // check the custoemrId of current session
         if (req.session && req.session.customerId) {
             
+            // find the order by customer id of current session
             orders = await Order.find({ customerId: req.session.customerId });
 
             // map the orders with Promise.all
