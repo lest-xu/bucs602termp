@@ -69,17 +69,23 @@ module.exports = {
         res.render('cartView', { title: "Your Cart", cart, grandTotal, totalQuantity });
     },
 
+    // POST update the items in the cart
     updateCart: (req, res, next) => {
+        // get productId and quantity from the input
         let { productId, quantity } = req.body;
+        // convert quantity to integer
         quantity = parseInt(quantity);
 
+        // make sure cart is not empty in the current session
         if (!req.session.cart) {
             return res.redirect('/cart');
         }
 
+        // get items from the current session cart
         let cart = req.session.cart;
+        // find the product by id from db
         let product = cart.find(item => item.id === productId);
-
+        // make sure the product exists and udpate the quantity
         if (product) {
             product.quantity = quantity;
         }
@@ -87,14 +93,19 @@ module.exports = {
         res.redirect('/cart');
     },
 
+    // POST check out
     checkout: async (req, res, next) => {
+        // get customers info from the input
         let { firstName, lastName, email, phone } = req.body;
 
+        // check items in the cart of the current session
         let cart = req.session.cart || [];
 
-        // make sure the item is available
+        // make sure the items are available in the stock
         for (let item of cart) {
+            // find the each item by id from db
             let product = await Product.findById(item.id);
+            // make sure the item in the stock
             if (product.quantity < item.quantity) {
                 return res.status(400).send('Insufficient stock for ' + product.name);
             }
@@ -102,13 +113,18 @@ module.exports = {
 
         // update the stock when checkout
         for (let item of cart) {
+            // find the each item by id from db
             let product = await Product.findById(item.id);
+            // update the stock when items sold
             product.quantity -= item.quantity;
+            // save the udpated stock quantity to db
             await product.save();
         }
 
         // find or create customer
+        // check if the customer's email exists in the db
         let customer = await Customer.findOne({ email: email });
+        // if no customer does not exists, create a new customer
         if (!customer) {
             customer = new Customer({ firstName, lastName, email, phone });
             await customer.save();
@@ -121,6 +137,7 @@ module.exports = {
             products: cart,
             date: new Date()
         });
+        // save the order to db
         await order.save();
 
         // clear the cart
@@ -128,14 +145,18 @@ module.exports = {
         res.redirect('/orders');
     },
 
+    // POST remove item from the cart
     removeFromCart: (req, res, next) => {
+        // find the product id when click delete button of the product
         let { productId } = req.body;
 
+        // make sure the items in the current session
         if (!req.session.cart) {
             return res.redirect('/cart');
         }
-
+        // get the items of cart object from the current session
         let cart = req.session.cart;
+        // remvoe items from the cart
         req.session.cart = cart.filter(item => item.id !== productId);
 
         res.redirect('/cart');
@@ -144,7 +165,7 @@ module.exports = {
 
 // helper - format the currency
 handlebars.registerHelper('formatCurrency', function (value) {
-    return parseFloat(value).toFixed(2);
+    return parseFloat(value).toFixed(2); // 2 decimal place for the money format
 });
 
 // helper - format the date
