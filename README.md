@@ -1,6 +1,7 @@
-# X Online Store - Term Project - CS602
+# X Grocery Store - Term Project - CS602
 
 This README.md file provides an overview of the assignments functionality implemented for term project Li Xu- CS602 S2 2024.
+A shopping cart application for a grocery online store, a customer will be able to add products into cart and checkout, an admin can manage a list of products and view/modify the customer's orders.
 
 ## Table of Contents
 
@@ -28,12 +29,12 @@ This README.md file provides an overview of the assignments functionality implem
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/lest-xu/bucs602a3.git
+   git clone https://github.com/lest-xu/bucs602termp.git
 
 2. Navigate to the project directory:
 
    ```sh
-   cd yourrepo/bucs601a3
+   cd yourrepo/bucs602termp
 
 3. Install the libraries:
 
@@ -45,18 +46,10 @@ This README.md file provides an overview of the assignments functionality implem
 1. Run the JavasSript code:
 
    ```sh
-   node part1/server.js
+   node server.js
    ```
 
-   ```sh
-   node part1/client.js
-   ```
-
-   ```sh
-   node part2/server.js
-   ```
-
-Then open the link http://localhost:3000 in your browser for each part of the assignment.
+Then open the link http://localhost:3000 in your browser.
 
 ## File Structure
 
