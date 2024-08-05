@@ -3,6 +3,7 @@
 This README.md file provides an overview of the assignments functionality implemented for term project Li Xu- CS602 S2 2024.
 A shopping cart application for a grocery online store, a customer will be able to add products into cart and checkout, an admin can manage a list of products and view/modify the customer's orders.
 
+Video Presentation for demo and code walkthrough [here](https://youtu.be/NWiXFS-aw0A).
 ## Table of Contents
 
 - [Technologies Used](#technologies-used)
