@@ -14,28 +14,31 @@
 				</tr>
 			</thead>
 			{{else}}
-			<tr><td colspan="3">No Products found ... Add One!</td></tr>
+			<tr>
+				<td colspan="3">No Products found ... Add One!</td>
+			</tr>
 			{{/if}}
 			<tbody>
 				{{#each data}}
-					<tr>
-						<td><img src="{{this.imgUrl}}" style="height: 25px;" alt="{{this.name}}"></td>
-						<td>{{this.name}}</td>
-						<td>{{formatCurrency this.price}}</td>
-						<td>{{this.description}}</td>
-						<td>{{this.quantity}}</td>
-						<td>
-							<a href="/admin/products/edit/{{this.id}}">Edit</a> | 
-							<a href="/admin/products/delete/{{this.id}}">Delete</a>
-						</td>
-					</tr>
+				<tr>
+					<td><img src="{{this.imgUrl}}" style="height: 25px;" alt="{{this.name}}"></td>
+					<td>{{this.name}}</td>
+					<td>{{formatCurrency this.price}}</td>
+					<td>{{this.description}}</td>
+					<td>{{this.quantity}}</td>
+					<td>
+						<a href="/admin/products/edit/{{this.id}}">📝 Edit</a> |
+						<a href="/admin/products/delete/{{this.id}}">❌ Delete</a>
+					</td>
+				</tr>
 				{{/each}}
 			</tbody>
 			<tfooter>
-				<tr><td>
-				<button class="btn btn-primary" 
-						onClick="addProduct();">Add</button>
-				</td></tr>
+				<tr>
+					<td>
+						<button class="btn btn-primary" onClick="addProduct();">➕ Add</button>
+					</td>
+				</tr>
 			</tfooter>
 		</table>
 	</div>
@@ -53,18 +56,20 @@
 				</tr>
 			</thead>
 			{{else}}
-			<tr><td colspan="3">No Customers found...</td></tr>
+			<tr>
+				<td colspan="3">No Customers found...</td>
+			</tr>
 			{{/if}}
 			<tbody>
 				{{#each customers}}
-					<tr>
-						<td><a href="/admin/customers/{{this.id}}">{{this.firstName}} {{this.lastName}}</a></td>
-						<td>{{this.email}}</td>
-						<td>{{this.phone}}</td>
-						<td>
-							<a href="/admin/customers/{{this.id}}">View Orders</a>
-						</td>
-					</tr>
+				<tr>
+					<td><a href="/admin/customers/{{this.id}}">{{this.firstName}} {{this.lastName}}</a></td>
+					<td>{{this.email}}</td>
+					<td>{{this.phone}}</td>
+					<td>
+						<a href="/admin/customers/{{this.id}}">View Orders</a>
+					</td>
+				</tr>
 				{{/each}}
 			</tbody>
 		</table>
