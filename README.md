@@ -96,7 +96,6 @@ The project directory contains the following files:
          ── connection_test.js
          ── credentials.js
          ── customerDB.js
-         ── initDB.js
          ── orderDB.js
          ── package-lock.json
          ── package.json
