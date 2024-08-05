@@ -11,9 +11,9 @@ module.exports = {
     displayAdmin: async (req, res, next) => {
         // find all products from productDB
         let products = await Product.find({});
-
+        // find all custoemrs from db
         let customers = await Customer.find({});
-
+        // fromat the results
         let productResults = products.map(item => ({
             id: item._id,
             name: item.name,
@@ -31,6 +31,7 @@ module.exports = {
             phone: customer.phone
         }));
 
+        // redner the admin home page
         res.render('./displayAdminView', {
             title: "Admin - X Grocery Store",
             data: productResults,
@@ -268,8 +269,9 @@ module.exports = {
             if (order) {
                 // find the product from the order
                 const product = order.products.find(product => product.id.toString() === itemId);
-
+                // make sure the product exists in db
                 if (product) {
+                    // update the quantity of the product and save to db
                     product.quantity = quantity;
                     await order.save();
                 }
@@ -282,10 +284,13 @@ module.exports = {
     },
 
     deleteOrder: async (req, res) => {
+        // get orderId from params
         const { orderId } = req.params;
 
         try {
+            // find order by id from db and then delete it
             const order = await Order.findByIdAndDelete(orderId);
+            // redirect to customer details page
             res.redirect(`/admin/customers/${order.customerId}`);
         } catch (error) {
             console.error(error);
