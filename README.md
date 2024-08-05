@@ -17,6 +17,7 @@ A shopping cart application for a grocery online store, a customer will be able 
 - Handlebars.js 
 - mongoose.js 
 - Node.js
+- Bootstrap CSS 4.X
 
 ## Getting Started
 
@@ -57,59 +58,48 @@ The project directory contains the following files:
 
 ```
     bucs602a1/
-      part1/
-         node_modules/
-         public/
-            ── bu-logo.gif
-         views/
-            layouts/
-               ── main.handlebars
-            ── 404.handlebars
-            ── homeView.handlebars
-            ── lookupByCityStateForm.handlebars
-            ── lookupByCityStateView.handlebars
-            ── lookupByZipForm.handlebars
-            ── lookupByZipView.handlebars
-            ── populationForm.handlebars
-            ── populationView.handlebars
-         ── client.js
-         ── connection_test.js
-         ── credentials.js
-         ── mongo_zipCodeModule_v2.js
-         ── package-lock.json
-         ── package.json
-         ── server.js
-      part2/
-         hw3_routes/
-            ── addEmployee.js
-            ── deleteEmployee.js
-            ── deleteEmployeeAfterConfirm.js
-            ── displayEmployees.js
-            ── editEmployee.js
-            ── index.js
-            ── saveAfterEdit.js
-            ── saveEmployee.js
+         constollers/
+            ── adminController.js
+            ── apiController.js
+            ── cartController.js
+            ── storeController.js
          node_modules/
          public/
             images/
-               ── bu-logo.gif
+               ── store-logo.gif
             javascripts/
                ── clickActions.js
             stylesheets/
                ── bootstrap.css
+               ── styles.css
+         routes/
+            ── index.js
          views/
+            customer/
+               ── viewCustomerDetails.handlebars
             layouts/
                ── main.handlebars
+            order/
+               ── displayProductsView.handlebars
+               ── editProductView.handlebars
+            product/
+               ── addProductView.handlebars
+               ── deleteProductView.handlebars
+               ── editProductView.handlebars
+               ── viewProductDetails.handlebars
             ── 404.handlebars
-            ── addEmployeeView.handlebars
-            ── deleteEmployeeView.handlebars
-            ── displayEmployeesView.handlebars
-            ── editEmployeeView.handlebars
+            ── cartView.handlebars
+            ── checkoutView.handlebars
+            ── displayAdminView.handlebars
+            ── displayStoreView.handlebars
+            ── orderHistoryView.handlebars
+         ── connection_test.js
          ── credentials.js
-         ── employeeDB.js
+         ── customerDB.js
          ── initDB.js
+         ── orderDB.js
          ── package-lock.json
          ── package.json
+         ── productDB.js
+         ── README.md
          ── server.js
-
-      ── README.md
