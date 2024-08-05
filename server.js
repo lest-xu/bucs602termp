@@ -21,7 +21,7 @@ app.use(session({
   secret: 'my-secret-key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set secure to true if using HTTPS
+  cookie: { secure: false } // set secure to true if using HTTPS
 }));
 
 // Routing
