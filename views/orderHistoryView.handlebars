@@ -10,7 +10,7 @@
             <ul class="list-group">
                 {{#each orders}}
                 <li class="list-group-item">
-                    <strong>Order Date:</strong> {{formatDate this.date}}<br>
+                    <strong>📅 Order Date:</strong> {{formatDate this.date}}<br>
                     <strong>Items:</strong>
                     <ul>
                         {{#each this.products}}
@@ -22,7 +22,7 @@
                 {{/each}}
             </ul>
             {{else}}
-            <p>You have no previous orders.</p>
+            <p>⭕️ You have no previous orders.</p>
             {{/if}}
         </div>
         <div class="col-md-3"></div>
