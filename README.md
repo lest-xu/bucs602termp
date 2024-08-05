@@ -89,7 +89,6 @@ The project directory contains the following files:
                ── viewProductDetails.handlebars
             ── 404.handlebars
             ── cartView.handlebars
-            ── checkoutView.handlebars
             ── displayAdminView.handlebars
             ── displayStoreView.handlebars
             ── orderHistoryView.handlebars
