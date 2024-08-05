@@ -23,8 +23,13 @@
 					{{/if}}
 				</div>
 				<br />
-				<div>In Stock: {{this.quantity}}</div>
-				<div>Price: <span class='text-success'>${{formatCurrency this.price}} </span></div>
+				{{#if this.quantity}}
+				<div>✅ Stock: {{this.quantity}}</div>
+				{{else}}
+				<br/>
+				<div class="text-danger">🚫 Out of stock</div>
+				{{/if}}
+				<div>💰 Price: <span class='text-success'>${{formatCurrency this.price}} </span></div>
 			</div>
 
 			{{/each}}
